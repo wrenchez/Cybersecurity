@@ -1,0 +1,2 @@
+Dealer working during losses is Billy Jones
+Count of games he was working during losses is 13
