@@ -113,13 +113,13 @@ SSH into the control node and follow the steps below:
 - _Which URL do you navigate to in order to check that the ELK server is running?
 http://[ELK VM IP]:5601/app/kibana
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the 
-ssh azureuser@jumpbox public IP
-sudo docker container list -a
-sudo docker start "container"
-sudo docker attach "container"
-cd /etc/ansible
-ansible-playbook install-elk.yml
-cd /etc/ansible/roles
-ansible-playbook filebeat-playbook.yml
-ansible-playbook metricbeat-playbook.yml
-navigate to http://[elk vm public ip]:5601/app/kibana to verify that the playbooks worked
+- ssh azureuser@jumpbox public IP
+- sudo docker container list -a
+- sudo docker start "container"
+- sudo docker attach "container"
+- cd /etc/ansible
+- ansible-playbook install-elk.yml
+- cd /etc/ansible/roles
+- ansible-playbook filebeat-playbook.yml
+- ansible-playbook metricbeat-playbook.yml
+-navigate to http://[elk vm public ip]:5601/app/kibana to verify that the playbooks worked
