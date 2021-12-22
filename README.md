@@ -76,7 +76,7 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-
+https://github.com/wrenchez/Cybersecurity/issues/2#issue-1087081764
 
 
 ### Target Machines & Beats
