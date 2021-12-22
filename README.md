@@ -115,8 +115,8 @@ http://[ELK VM IP]:5601/app/kibana
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the 
 - ssh azureuser@jumpbox public IP
 - sudo docker container list -a
-- sudo docker start "container"
-- sudo docker attach "container"
+- sudo docker start "container ID"
+- sudo docker attach "container ID"
 - cd /etc/ansible
 - ansible-playbook install-elk.yml
 - cd /etc/ansible/roles
