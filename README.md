@@ -8,6 +8,8 @@ The files in this repository were used to configure the network depicted below.
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook file may be used to install only certain pieces of it, such as Filebeat.
 
   - filebeat-playbook.yml
+  - install-elk.yml
+  - metricbeat-playbook.yml
 
 This document contains the following details:
 - Description of the Topologu
@@ -35,9 +37,9 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
 | Jump Box | Gateway  | 10.0.0.4  | Linux  Ubuntu 18.04          |
-| Web-1    |   VM       |    10.0.0.5    |      Linux Ubuntu 18.04            |
-| Web-2    |    VM      |    10.0.0.6        |       Linux Ubuntu 18.04           |
-| Web-3    |VM        | 10.0.0.8   | Linux Ubuntu 18.04
+| Web-1 (DVWA)   |   VM       |    10.0.0.5    |      Linux Ubuntu 18.04            |
+| Web-2  (DVWA)  |    VM      |    10.0.0.6        |       Linux Ubuntu 18.04           |
+| Web-3 (DVWA)   |VM        | 10.0.0.8   | Linux Ubuntu 18.04
 | Elk-VM   |        ELK-Stack    |   10.1.0.4   |Linux Ubuntu 18.04
 
 ### Access Policies
@@ -45,7 +47,7 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Jumpbox machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- 52.165.192.63
+- My home IP address
 
 Machines within the network can only be accessed by Port 22.
 - Jump Box VM 10.0.0.4
@@ -58,7 +60,7 @@ A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
-| Jump Box | No            | 52.165.192.63  |
+| Jump Box | No            | My home IP address |
 |     DVWA VMs    |       No              |         10.0.0.4            |
 |       ELK VM   |  No                   |     10.0.0.4                 |
 
@@ -81,14 +83,14 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- 10.0.0.5
-- 10.0.0.6
-- 10.0.0.8
-- 10.1.0.4
+- Web-1 10.0.0.5
+- Web-2 10.0.0.6
+- Web-3 10.0.0.8
+
 
 We have installed the following Beats on these machines:
-- filebeat-7.4.0-amd64.deb
-- metricbeat-7.4.0-amd64.deb
+- filebeat
+- metricbeat
 
 These Beats allow us to collect the following information from each machine:
 - Filebeat monitors the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing. Metricbeat collects metrics from the operating system and from services running on the server. Metricbeat takes the metrics and statistics that it collects and ships them to the output that you specify, such as Elasticsearch or Logstash. 
@@ -97,13 +99,27 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
+- Copy the filebeat-playbook.yml and metricbeat-playbook.yml file to /etc/ansible/roles
+- Update the /etc/ansible/hosts file to include the webserver and elk IPs..10.0.0.5,10.0.0.6,10.0.0.8, 10.1.0.4
+- Update the metricbeat-config.yml and filebeat-config.yml files to include which hosts to run the playbook on ansible.
 - Run the playbook, and navigate to Kibana to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
+- install-elk.yml is copied to /etc/ansible
+- filebeat-playbook.yml is copied to /etc/ansible/roles
+- metricbeat-playbook.yml is copied to /etc/ansible/roles
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
+- Update /etc/ansible/hosts, you configure the IPs for each service. DVWA is under webservers and ELK stack is under elk. In the playbook files, you can designate which host to run the playbook on ansible
 - _Which URL do you navigate to in order to check that the ELK server is running?
-
+http://[ELK VM IP]:5601/app/kibana
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the 
+ssh azureuser@jumpbox public IP
+sudo docker container list -a
+sudo docker start "container"
+sudo docker attach "container"
+cd /etc/ansible
+ansible-playbook install-elk.yml
+cd /etc/ansible/roles
+ansible-playbook filebeat-playbook.yml
+ansible-playbook metricbeat-playbook.yml
+navigate to http://[elk vm public ip]:5601/app/kibana to verify that the playbooks worked
