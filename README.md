@@ -3,7 +3,7 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![ELK Project] (http://https://drive.google.com/file/d/1dcdjaoU2yAQ_TYjHfQbHhPFlf-MyVSiV/view?usp=sharing
+https://github.com/wrenchez/Cybersecurity/blob/main/Diagrams/ELK%20Project.drawio.png
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook file may be used to install only certain pieces of it, such as Filebeat.
 
